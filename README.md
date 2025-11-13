@@ -11,17 +11,6 @@
 <a href="https://www.sqlite.org/" target="_blank"> <img src="https://www.vectorlogo.zone/logos/sqlite/sqlite-icon.svg" alt="sqlite" width="40" height="40"/> </a>
 
 </p>
-### API Documentation (Swagger UI)
-This project includes interactive API documentation generated automatically from the source code using `drf-yasg`. You can view all available endpoints, see the required parameters, and test the API directly in your browser. This makes development and testing much faster.
-
-Once the server is running, you can access the documentation at:
-- **Swagger UI:** `http://127.0.0.1:8000/swagger/`
-- **ReDoc:** `http://127.0.0.1:8000/redoc/`
-
-<p align="center">
-  <img src="https://github.com/mehranmohammadiii/Django-CBV-DRF-GenericView-TodoApp/blob/main/demo/swagger.png" alt="Swagger UI Demo" width="720"/>
-</p>
-
 
 ### Overview
 - [Overview](#overview)
@@ -39,6 +28,17 @@ Once the server is running, you can access the documentation at:
 This is a brief demo of the functionality of the project
 <p align="center">
 <img src="https://github.com/mehranmohammadiii/Django-CBV-DRF-GenericView-TodoApp/blob/main/demo/todo-app.gif" alt="database schema" width="720"/>
+</p>
+
+### API Documentation (Swagger UI)
+This project includes interactive API documentation generated automatically from the source code using `drf-yasg`. You can view all available endpoints, see the required parameters, and test the API directly in your browser. This makes development and testing much faster.
+
+Once the server is running, you can access the documentation at:
+- **Swagger UI:** `http://127.0.0.1:8000/swagger/`
+- **ReDoc:** `http://127.0.0.1:8000/redoc/`
+
+<p align="center">
+  <img src="https://github.com/mehranmohammadiii/Django-CBV-DRF-GenericView-TodoApp/blob/main/demo/swagger.png" alt="Swagger UI Demo" width="720"/>
 </p>
 
 ### Features

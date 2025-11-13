@@ -29,7 +29,7 @@
 ### Demo
 This is a brief demo of the functionality of the project
 <p align="center">
-<img src="https://user-images.githubusercontent.com/29748439/135094064-c0b90164-d601-41b2-83cc-614d622daf77.gif" alt="database schema" width="720"/>
+<img src="https://github.com/mehranmohammadiii/Django-CBV-DRF-GenericView-TodoApp/blob/main/demo/todo-app.gif" alt="database schema" width="720"/>
 </p>
 
 ### Features
@@ -48,7 +48,7 @@ This is a brief demo of the functionality of the project
 ### Setup
 To get this repository, run the following command inside your git enabled terminal
 ```bash
-git clone https://github.com/alibigdeli/Django-CBV-DRF-GenericView-TodoApp
+git clone https://github.com/mehranmohammadiii/Django-CBV-DRF-GenericView-TodoApp
 ```
 
 ### Getting ready

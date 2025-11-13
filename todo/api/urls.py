@@ -5,7 +5,7 @@ from .views import TodoListView, TodoDetailApiView
 urlpatterns = [
     path("task-list/", TodoListView.as_view(), name="task_list"),
     path(
-        "task-detail/<int:todo_id>/",
+        "task-detail/<int:pk>/",
         TodoDetailApiView.as_view(),
         name="task_detail",
     ),

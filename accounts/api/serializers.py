@@ -1,13 +1,13 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-from django.utils.translation import ugettext_lazy as _
+# from django.utils.translation import ugettext_lazy as _
 
 
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=255)
     password = serializers.CharField(
-        label=_("Password"),
+        label=("Password"),
         style={"input_type": "password"},
         trim_whitespace=False,
         max_length=128,
@@ -25,10 +25,10 @@ class LoginSerializer(serializers.Serializer):
                 password=password,
             )
             if not user:
-                msg = _("Unable to log in with provided credentials.")
+                msg = ("Unable to log in with provided credentials.")
                 raise serializers.ValidationError(msg, code="authorization")
         else:
-            msg = _('Must include "username" and "password".')
+            msg = ('Must include "username" and "password".')
             raise serializers.ValidationError(msg, code="authorization")
         data["user"] = user
         return data
@@ -37,14 +37,14 @@ class LoginSerializer(serializers.Serializer):
 class RegisterSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=255)
     password1 = serializers.CharField(
-        label=_("Password1"),
+        label=("Password1"),
         style={"input_type": "password"},
         trim_whitespace=False,
         max_length=128,
         write_only=True,
     )
     password2 = serializers.CharField(
-        label=_("Password2"),
+        label=("Password2"),
         style={"input_type": "password2"},
         trim_whitespace=False,
         max_length=128,

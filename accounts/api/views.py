@@ -344,5 +344,5 @@ class SendEmailView(generics.GenericAPIView):
         return Response("send email")
     #smtp4dev
     #django email templates 
-    #Django Mail Templated 
+    #Django Mail Templated
 # --------------------------------------------------------------------------------------------------

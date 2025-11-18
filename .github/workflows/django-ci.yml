@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
 
 # Steps that are executed in order
+
+
     steps :
 
       # Step 1: Gets the project code from the GitHub repository
@@ -29,7 +31,8 @@ jobs:
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.tx
+          pip install -r requirements.txt
+
       # Step 4: Runs Django tests
       - name: Run Tests
         run: |

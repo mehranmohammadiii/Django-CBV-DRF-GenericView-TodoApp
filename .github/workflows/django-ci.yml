@@ -67,4 +67,4 @@ jobs:
 
       # Step 4: Runs Django tests
       - name: Run Tests
-        run: docker compose exec backend -C "flake 8 . && pytest ."
+        run: docker compose exec backend -c "flake8 && pytest"

@@ -1,0 +1,16 @@
+
+services:
+  backend:
+    build: .
+    container_name: django_todo_app
+    environment:
+      - DEBUG=True
+      - SECRET_KEY=django-insecure-your-secret-key-change-in-production
+      - ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    restart: unless-stopped

@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
 # Steps that are executed in order
-    setup :
+    steps :
 
       # Step 1: Gets the project code from the GitHub repository
       - name: Checkout code

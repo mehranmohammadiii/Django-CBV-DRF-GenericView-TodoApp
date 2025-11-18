@@ -1,3 +1,44 @@
+# name: Django CI
+
+# # Determines when this Workflow will run
+# on:
+#   push:
+#     branches: [ main ]
+#   pull_request:
+#     branches: [ main ]
+
+# # The jobs to run in this Workflow
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+# # Steps that are executed in order
+
+
+#     steps :
+
+#       # Step 1: Gets the project code from the GitHub repository
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+
+#       # Step 2: Install and launch Python version 3.9 on the virtual machine
+#       - name: Set up Python 3.9
+#         uses: actions/setup-python@v4
+#         with:
+#           python-version: 3.9
+
+#       # Step 3: Installs project requirements from requirements.txt file
+#       - name: Install Dependencies
+#         run: |
+#           python -m pip install --upgrade pip
+#           pip install -r requirements.txt
+
+#       # Step 4: Runs Django tests
+#       - name: Run Tests
+#         run: |
+#           python manage.py test
+
+# ---------------------------------------------------------------------
 name: Django CI
 
 # Determines when this Workflow will run
@@ -14,7 +55,6 @@ jobs:
 
 # Steps that are executed in order
 
-
     steps :
 
       # Step 1: Gets the project code from the GitHub repository
@@ -22,18 +62,9 @@ jobs:
         uses: actions/checkout@v4
 
       # Step 2: Install and launch Python version 3.9 on the virtual machine
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.9
-
-      # Step 3: Installs project requirements from requirements.txt file
-      - name: Install Dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+      - name: Setup docker compose
+        run: docker compose up -d
 
       # Step 4: Runs Django tests
       - name: Run Tests
-        run: |
-          python manage.py test
+        run: docker compose exec backend -c "flake8 . && pytest ."

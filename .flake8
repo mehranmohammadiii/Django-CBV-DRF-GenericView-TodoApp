@@ -6,4 +6,5 @@ exclude =
     settings.py,
     venv,
     env,
-max-line-length = 79
+; max-line-length = 78s
+ignore = E501,E712,E722

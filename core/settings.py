@@ -43,9 +43,9 @@ INSTALLED_APPS = [
     "accounts",
     "rest_framework",
     "corsheaders",
-    'drf_yasg',
-    'rest_framework.authtoken',
-    'rest_framework_simplejwt',
+    "drf_yasg",
+    "rest_framework.authtoken",
+    "rest_framework_simplejwt",
 ]
 
 MIDDLEWARE = [
@@ -150,9 +150,7 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-
-        
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ]
 }
 

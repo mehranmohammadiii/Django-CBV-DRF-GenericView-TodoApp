@@ -17,9 +17,7 @@ class TaskListViewTest(TestCase):
 
     # ---------------------------------
     def setUp(self):
-        self.user = User.objects.create_user(
-            username="testuser", password="pass1234"
-        )
+        self.user = User.objects.create_user(username="testuser", password="pass1234")
         self.other_user = User.objects.create_user(
             username="other", password="pass1234"
         )
@@ -59,9 +57,7 @@ class TaskDetailViewTest(TestCase):
     # ---------------------------------
     def setUp(self):
 
-        self.user = User.objects.create_user(
-            username="testuser", password="pass1234"
-        )
+        self.user = User.objects.create_user(username="testuser", password="pass1234")
         self.other_user = User.objects.create_user(
             username="other", password="pass1234"
         )
@@ -79,9 +75,7 @@ class TaskDetailViewTest(TestCase):
 
         self.client.force_login(self.user)
 
-        response = self.client.get(
-            f"/todo/api/task-detail/{self.task_user1.id}/"
-        )
+        response = self.client.get(f"/todo/api/task-detail/{self.task_user1.id}/")
 
         self.assertEqual(response.status_code, 200)
 
@@ -97,9 +91,7 @@ class TaskDetailViewTest(TestCase):
 
         self.client.force_login(self.user)
 
-        response = self.client.get(
-            f"/todo/api/task-detail/{self.task_user2.id}/"
-        )
+        response = self.client.get(f"/todo/api/task-detail/{self.task_user2.id}/")
 
         self.assertEqual(response.status_code, 404)
 

@@ -150,9 +150,7 @@ class RegisterApiView(generics.GenericAPIView):
         if serializer.is_valid():
             username = serializer.validated_data["username"]
             password = serializer.validated_data["password1"]
-            user = User.objects.create_user(
-                username=username, password=password
-            )
+            user = User.objects.create_user(username=username, password=password)
             authenticate(request, username=username, password=password)
             login(request, user)
             token, created = Token.objects.get_or_create(user=user)
@@ -336,9 +334,7 @@ class ChangePasswordView(generics.GenericAPIView):
 
         if serializer.is_valid():
             # Check old password
-            if not self.object.check_password(
-                serializer.data.get("old_password")
-            ):
+            if not self.object.check_password(serializer.data.get("old_password")):
                 return Response(
                     {"old_password": ["Wrong password."]},
                     status=status.HTTP_400_BAD_REQUEST,

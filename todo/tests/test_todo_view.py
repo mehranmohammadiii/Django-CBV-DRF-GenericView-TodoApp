@@ -13,9 +13,7 @@ class IndexViewTest(TestCase):
 
     #  -------------------------
     def setUp(self):
-        self.user = User.objects.create_user(
-            username="testuser", password="pass1234"
-        )
+        self.user = User.objects.create_user(username="testuser", password="pass1234")
 
     #  -------------------------
     def test_index_view_requires_login(self):

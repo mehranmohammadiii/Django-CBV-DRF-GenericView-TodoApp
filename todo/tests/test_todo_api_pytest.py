@@ -24,9 +24,7 @@ class TestTaskListAPI:
     @pytest.fixture(autouse=True)
     def setup(self):
         """Each test prepares this data before starting."""
-        self.user = User.objects.create_user(
-            username="testuser", password="pass1234"
-        )
+        self.user = User.objects.create_user(username="testuser", password="pass1234")
 
         self.other_user = User.objects.create_user(
             username="other", password="pass1234"
@@ -35,9 +33,7 @@ class TestTaskListAPI:
         self.task1 = Task.objects.create(
             user=self.user, title="Task 1", completed=False
         )
-        self.task2 = Task.objects.create(
-            user=self.user, title="Task 2", completed=True
-        )
+        self.task2 = Task.objects.create(user=self.user, title="Task 2", completed=True)
 
         self.task3 = Task.objects.create(
             user=self.other_user, title="Task از کاربر دیگر", completed=False
@@ -139,9 +135,7 @@ class TestTaskListAPI:
     def test_task_list_empty_for_user_without_tasks(self, client):
         """Check if the user sees an empty list without a task."""
 
-        new_user = User.objects.create_user(
-            username="newuser", password="pass1234"
-        )
+        new_user = User.objects.create_user(username="newuser", password="pass1234")
 
         client.force_login(new_user)
         response = client.get("/todo/api/task-list/")

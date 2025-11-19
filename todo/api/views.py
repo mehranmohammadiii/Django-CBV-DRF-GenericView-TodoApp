@@ -32,11 +32,7 @@ class TodoListView(generics.ListCreateAPIView):
 
     # -----------------------------------
     def get_queryset(self, *args, **kwargs):
-        return (
-            super()
-            .get_queryset(*args, **kwargs)
-            .filter(user=self.request.user)
-        )
+        return super().get_queryset(*args, **kwargs).filter(user=self.request.user)
 
     # -----------------------------------
     def perform_create(self, serializer):

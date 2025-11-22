@@ -154,3 +154,11 @@ REST_FRAMEWORK = {
 
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+
+# Celery Settings
+CELERY_BROKER_URL = 'redis://redis:6379/0'  # Address to connect to the redis service in Docker
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0' # The results of the tasks are also saved here.
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'

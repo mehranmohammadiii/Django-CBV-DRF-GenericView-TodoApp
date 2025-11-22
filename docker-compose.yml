@@ -1,6 +1,7 @@
 
 services:
   backend:
+  
     build: .
     container_name: django_todo_app
     environment:
@@ -14,3 +15,42 @@ services:
       - "8000:8000"
     command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     restart: unless-stopped
+
+    #load test / locust
+  master:
+
+    container_name: locust
+    image: locustio/locust
+    ports:
+    - "8089:8089"
+    volumes:
+      - ./core/locust:/mnt/locust
+    command: -f /mnt/locust/locustfile.py --master -H http://backend:8089
+  worker:
+
+    image: locustio/locust
+    volumes:
+      - ./core/locust:/mnt/locust
+    command: -f /mnt/locust/locustfile.py --worker --master-host master
+
+  # (Broker)
+  redis:
+
+    container_name: redis
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  # celery 
+  celery:
+
+    container_name: celery
+    build: .
+    command: celery -A core worker --loglevel=info
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+      - backend
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0

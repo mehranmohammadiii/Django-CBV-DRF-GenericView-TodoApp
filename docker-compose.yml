@@ -54,3 +54,18 @@ services:
       - backend
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
+
+  # Scheduler service (Beat)
+  celery-beat:
+
+    container_name: celery-beat
+    build: .
+    command: celery -A core beat --loglevel=info
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+      - backend
+
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0

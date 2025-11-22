@@ -154,7 +154,11 @@ REST_FRAMEWORK = {
 
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
+EMAIL_HOST = "localhost"
+EMAIL_PORT = 1025
+EMAIL_HOST_USER = "mehran"
+EMAIL_HOST_PASSWORD = ""
+EMAIL_USE_TLS = False
 
 # Celery Settings
 CELERY_BROKER_URL = (
@@ -166,3 +170,18 @@ CELERY_RESULT_BACKEND = (
 CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
+
+# setting Beat
+from celery.schedules import crontab
+
+CELERY_BEAT_SCHEDULE = {
+    "report-every-30-seconds": {
+        "task": "todo.tasks.count_incomplete_tasks",
+        "schedule": 30.0,
+    },
+    "delete-completed-every-10-mins": {
+        "task": "todo.tasks.delete_completed_tasks",
+        "schedule": crontab(minute="*"),
+    },
+}
+CELERY_TIMEZONE = "Asia/Tehran"

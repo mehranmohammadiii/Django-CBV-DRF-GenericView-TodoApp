@@ -1,9 +1,13 @@
+import requests
 from todo.models import Task
 from .serializers import TaskSerializer
 from rest_framework import permissions
 from rest_framework import generics
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
+from django.http import JsonResponse
+from django.core.cache import cache
+from django.views.decorators.cache import cache_page
 
 
 class TodoListView(generics.ListCreateAPIView):
@@ -120,3 +124,18 @@ class TodoDetailApiView(generics.RetrieveUpdateDestroyAPIView):
 #         serializer.save()
 #     return Response(serializer.data)
 # -------------------------------------------------------------------------------------------------------------------------------------------
+
+# redis caching example
+
+# def redis_cashe(request):
+#     if cache.get('api_delay') is None :
+#         response = requests.get('https://postman-echo.com/delay/10')
+#         cache.set('api_delay', response.json(), timeout=120)  # Cache for 120 seconds
+#     return JsonResponse({'status': 'success', 'data': cache.get('api_delay')})
+
+
+@cache_page(60 * 1)
+def redis_cashe(request):
+
+    response = requests.get("https://postman-echo.com/delay/10")
+    return JsonResponse({"status": "success", "data": response.json()})

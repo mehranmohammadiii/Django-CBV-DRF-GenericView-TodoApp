@@ -13,3 +13,5 @@ flake8
 Faker
 celery>=5.3
 redis>=5.0
+requests
+django-redis

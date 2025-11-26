@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import TodoListView, TodoDetailApiView, redis_cashe
+from .views import TodoListView, TodoDetailApiView, redis_cashe, WeatherApi
 
 urlpatterns = [
     path("task-list/", TodoListView.as_view(), name="task_list"),
@@ -10,4 +10,5 @@ urlpatterns = [
         name="task_detail",
     ),
     path("test-cashing-redis/", redis_cashe, name="redis_cashe"),
+    path("weather/", WeatherApi.as_view(), name="weather_api"),
 ]

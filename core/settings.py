@@ -173,6 +173,20 @@ CELERY_RESULT_SERIALIZER = "json"
 
 # Redis Cache Configuration
 CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://redis:6379/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
+# OpenWeather API Configuration
+OPENWEATHER_API_KEY = "ce97ac54e86bfb603d93ad804d782169"  # Replace with your actual API key from openweathermap.org
+
+# Redis Cache Configuration
+CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://redis:6379/1",
@@ -196,3 +210,5 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 CELERY_TIMEZONE = "Asia/Tehran"
+
+OPENWEATHER_API_KEY = 'db3867e68a0dd5b2e71044e071e96796'

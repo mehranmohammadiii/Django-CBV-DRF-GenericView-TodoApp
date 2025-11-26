@@ -10,6 +10,8 @@ from django.core.cache import cache
 from django.views.decorators.cache import cache_page
 from rest_framework.response import Response
 from django.conf import settings
+
+
 class TodoListView(generics.ListCreateAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
@@ -139,40 +141,40 @@ def redis_cashe(request):
 
     response = requests.get("https://postman-echo.com/delay/10")
     return JsonResponse({"status": "success", "data": response.json()})
+
+
 # ---------------------------------------------------------------------------------------------------------------
 class WeatherApi(generics.GenericAPIView):
-
     """
     Get weather information for a city with Redis caching
     Usage: GET /api/weather/?city=Tehran
     """
-    
+
     def get(self, request, *args, **kwargs):
-        city = request.GET.get('city', 'Tehran')
-        
-        cache_key = f'weather_{city}'
+        city = request.GET.get("city", "Tehran")
+
+        cache_key = f"weather_{city}"
         weather_data = cache.get(cache_key)
 
         if weather_data:
-            return Response({
-                "source": "Redis Cache ⚡", 
-                "city": city,
-                "data": weather_data,
-                "cached": True
-            })
-        
-        api_key = getattr(settings, 'OPENWEATHER_API_KEY', None)
-        if not api_key:
             return Response(
-                {"error": "API Key not configured"}, 
-                status=500
+                {
+                    "source": "Redis Cache ⚡",
+                    "city": city,
+                    "data": weather_data,
+                    "cached": True,
+                }
             )
-        
+
+        api_key = getattr(settings, "OPENWEATHER_API_KEY", None)
+        if not api_key:
+            return Response({"error": "API Key not configured"}, status=500)
+
         url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
 
         try:
             response = requests.get(url, timeout=10)
-            
+
             if response.status_code == 200:
                 data = response.json()
 
@@ -180,38 +182,34 @@ class WeatherApi(generics.GenericAPIView):
                     "city": data.get("name", "Unknown"),
                     "temp": data.get("main", {}).get("temp", 0),
                     "feels_like": data.get("main", {}).get("feels_like", 0),
-                    "description": data.get("weather", [{}])[0].get("description", "Unknown"),
+                    "description": data.get("weather", [{}])[0].get(
+                        "description", "Unknown"
+                    ),
                     "humidity": data.get("main", {}).get("humidity", 0),
-                    "wind_speed": data.get("wind", {}).get("speed", 0)
+                    "wind_speed": data.get("wind", {}).get("speed", 0),
                 }
-                
+
                 cache.set(cache_key, clean_data, timeout=1200)
 
-                return Response({
-                    "source": "OpenWeatherMap API 🌍",
-                    "data": clean_data,
-                    "cached": False
-                })
-            
-            elif response.status_code == 404:
                 return Response(
-                    {"error": f"City '{city}' not found"}, 
-                    status=404
+                    {
+                        "source": "OpenWeatherMap API 🌍",
+                        "data": clean_data,
+                        "cached": False,
+                    }
                 )
+
+            elif response.status_code == 404:
+                return Response({"error": f"City '{city}' not found"}, status=404)
             else:
                 return Response(
-                    {"error": "Weather API error"}, 
-                    status=response.status_code
+                    {"error": "Weather API error"}, status=response.status_code
                 )
 
         except requests.Timeout:
-            return Response(
-                {"error": "API request timeout"}, 
-                status=504
-            )
+            return Response({"error": "API request timeout"}, status=504)
         except requests.RequestException as e:
-            return Response(
-                {"error": f"Service unavailable: {str(e)}"}, 
-                status=503
-            )
+            return Response({"error": f"Service unavailable: {str(e)}"}, status=503)
+
+
 # ---------------------------------------------------------------------------------------------------------------

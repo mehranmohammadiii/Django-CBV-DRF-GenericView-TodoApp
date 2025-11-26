@@ -173,12 +173,12 @@ CELERY_RESULT_SERIALIZER = "json"
 
 # Redis Cache Configuration
 CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://redis:6379/1',
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        }
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://redis:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
     }
 }
 
@@ -211,4 +211,4 @@ CELERY_BEAT_SCHEDULE = {
 }
 CELERY_TIMEZONE = "Asia/Tehran"
 
-OPENWEATHER_API_KEY = 'db3867e68a0dd5b2e71044e071e96796'
+OPENWEATHER_API_KEY = "db3867e68a0dd5b2e71044e071e96796"

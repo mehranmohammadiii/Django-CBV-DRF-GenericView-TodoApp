@@ -1,0 +1,30 @@
+name: CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]  
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+    needs: test 
+
+    steps:
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+
+            cd project
+            
+            git reset --hard
+            git pull origin main
+            
+            docker compose -f docker-compose-stage.yml up --build -d
+            
+            docker image prune -f

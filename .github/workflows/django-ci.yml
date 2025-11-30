@@ -50,7 +50,7 @@ on:
 
 # The jobs to run in this Workflow
 jobs:
-  build:
+  build_and_test:
     runs-on: ubuntu-latest
 
 # Steps that are executed in order
@@ -68,3 +68,27 @@ jobs:
       # Step 4: Runs Django tests
       - name: Run Tests
         run: docker compose exec backend sh -c "flake8 && pytest"
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build_and_test
+
+    steps:
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+
+            cd project
+            
+            git reset --hard
+            git pull origin main
+            
+            docker compose -f docker-compose-stage.yml up --build -d
+            
+            docker image prune -f
+
